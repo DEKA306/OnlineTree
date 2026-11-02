@@ -6,8 +6,20 @@
   const messageInput = document.querySelector("#message");
   const countEl = document.querySelector("#char-count");
   const tree = document.querySelector("#tree");
-  const ornamentsEl = document.querySelector("#ornaments");
+  let ornamentsEl = document.querySelector("#ornaments");
   const dialog = document.querySelector("#message-dialog");
+
+  // Recover gracefully if an older index.html is paired with this app.js.
+  if (!ornamentsEl && tree) {
+    ornamentsEl = document.createElement("div");
+    ornamentsEl.id = "ornaments";
+    ornamentsEl.className = "ornaments";
+    tree.append(ornamentsEl);
+  }
+  if (!tree || !ornamentsEl) {
+    console.error("트리 요소를 찾을 수 없습니다. index.html과 app.js를 같은 버전으로 업로드해 주세요.");
+    return;
+  }
   const configured = endpoint.startsWith("https://script.google.com/macros/s/");
   let latestMessages = [];
 

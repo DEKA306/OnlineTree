@@ -58,3 +58,9 @@
 
 ## Messages displayed directly on the tree
 Approved messages are rendered as readable labels directly over the tree branches. They remain visible without clicking; clicking a label opens a larger detail view. The separate message wall is not used. The tree becomes taller as approved messages accumulate. The website refreshes the list every 20 seconds.
+
+
+## Displaying text directly on the tree
+This version places every approved message as a readable text card directly over the green tree canopy. It does not use a separate message board. The full message (up to 30 characters) is visible without clicking; clicking a card only opens a larger view.
+
+Important moderation behavior: submissions are saved as `pending`. They will NOT appear on the public tree until the administrator changes the `status` cell in the existing `Messages` sheet to `approved`. Once approved, the page shows them on the tree on the next refresh (up to 20 seconds). The existing spreadsheet and Apps Script deployment URL are reused; do not run `setup()` again.
