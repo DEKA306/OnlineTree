@@ -49,45 +49,38 @@
     });
   }
 
-  function getTreeTierCount(count) {
-    if (count <= 10) return 5;
-    if (count <= 25) return 6;
-    if (count <= 50) return 7;
-    if (count <= 100) return 9;
-    return Math.min(30, 9 + Math.floor((count - 100) / 15));
-  }
-
-  function getLayoutMetrics(count) {
+  function layoutFor(count) {
     const mobile = window.matchMedia("(max-width: 560px)").matches;
     const columns = mobile ? 1 : 2;
     const rows = Math.max(1, Math.ceil(count / columns));
-    const rowPitch = mobile ? 76 : 70;
-    const treeHeight = Math.max(410, 190 + rows * rowPitch);
-    return { mobile, columns, rows, rowPitch, treeHeight };
+    const rowPitch = mobile ? 82 : 78;
+    const cardTop = 28;
+    const treeHeight = Math.max(470, cardTop + rows * rowPitch + 50);
+    const tierCount = Math.max(5, Math.min(60, Math.ceil((treeHeight - 220) / 115) + 1));
+    return { mobile, columns, rows, rowPitch, cardTop, treeHeight, tierCount };
   }
 
   function renderTreeShape(count) {
-    const { treeHeight } = getLayoutMetrics(count);
-    tree.querySelectorAll(".tree-row").forEach(row => row.remove());
+    const metrics = layoutFor(count);
+    tree.querySelectorAll(".tree-row").forEach(node => node.remove());
 
-    tree.style.height = `${treeHeight}px`;
-    const scene = tree.parentElement;
-    scene.style.height = `${treeHeight + 100}px`;
+    tree.style.height = `${metrics.treeHeight}px`;
+    tree.parentElement.style.height = `${metrics.treeHeight + 95}px`;
 
-    const tiers = Math.max(getTreeTierCount(count), Math.ceil(treeHeight / 190));
+    const layerHeight = Math.min(300, Math.max(220, metrics.treeHeight / 4));
+    const firstTop = 0;
+    const lastTop = Math.max(0, metrics.treeHeight - layerHeight);
     const colors = ["#38b978", "#259e6a", "#1d8c60", "#187b57", "#146d50"];
-    const layerHeight = Math.min(190, Math.max(145, treeHeight / Math.max(2, tiers) * 1.5));
-    const firstTop = 16;
-    const lastTop = Math.max(firstTop, treeHeight - layerHeight - 8);
 
-    for (let i = 0; i < tiers; i++) {
+    for (let i = 0; i < metrics.tierCount; i++) {
       const row = document.createElement("div");
-      const progress = tiers === 1 ? 1 : i / (tiers - 1);
+      const progress = metrics.tierCount === 1 ? 1 : i / (metrics.tierCount - 1);
       row.className = "tree-row";
-      row.style.width = `${118 + progress * 312}px`;
+      row.style.width = `${440 + progress * 120}px`;
       row.style.height = `${layerHeight}px`;
       row.style.top = `${firstTop + progress * (lastTop - firstTop)}px`;
       row.style.background = colors[i % colors.length];
+      row.style.zIndex = String(i + 1);
       tree.insertBefore(row, tree.querySelector(".trunk"));
     }
   }
@@ -95,72 +88,87 @@
   function updateGrowthLabel(count) {
     const label = document.querySelector("#growth-stage");
     if (!label) return;
-    const tiers = getTreeTierCount(count);
-    const stage = tiers <= 5 ? "새싹 단계" :
-      tiers === 6 ? "성장 단계" :
-      tiers <= 8 ? "풍성한 트리" :
-      tiers <= 10 ? "거대한 트리" : "전설의 트리";
+    const tiers = layoutFor(count).tierCount;
+    const stage = count < 11 ? "새싹 단계" :
+      count < 26 ? "성장 단계" :
+      count < 51 ? "풍성한 트리" :
+      count < 101 ? "거대한 트리" : "전설의 트리";
     label.textContent = `${stage} · 가지 층 ${tiers}단`;
   }
 
   function showMessage(data) {
-    document.querySelector("#dialog-nickname").textContent = data.nickname;
-    document.querySelector("#dialog-message").textContent = data.message;
+    document.querySelector("#dialog-nickname").textContent = data.nickname || "익명";
+    document.querySelector("#dialog-message").textContent = data.message || "";
     dialog.showModal();
   }
 
   function renderTreeMessages(messages) {
     ornamentsEl.replaceChildren();
-    const { mobile, columns, rows, rowPitch } = getLayoutMetrics(messages.length);
+
+    if (!messages.length) {
+      const empty = document.createElement("p");
+      empty.className = "tree-empty";
+      empty.textContent = "첫 번째 메시지를 기다리고 있어요.";
+      ornamentsEl.append(empty);
+      return;
+    }
+
+    const metrics = layoutFor(messages.length);
 
     messages.forEach((data, index) => {
+      const row = Math.floor(index / metrics.columns);
+      const column = index % metrics.columns;
+
       const card = document.createElement("button");
       card.type = "button";
       card.className = "tree-message";
-      card.style.top = `${20 + Math.floor(index / columns) * rowPitch}px`;
-      card.style.left = mobile ? "5%" : (index % 2 === 0 ? "3%" : "51%");
-      card.style.width = mobile ? "90%" : "46%";
+      card.style.top = `${metrics.cardTop + row * metrics.rowPitch}px`;
+      card.style.left = metrics.mobile ? "5%" : (column === 0 ? "3%" : "52%");
+      card.style.width = metrics.mobile ? "90%" : "45%";
       card.style.borderLeftColor = data.color || "#ffd875";
-      card.setAttribute("aria-label", `${data.nickname}: ${data.message}`);
+      card.setAttribute("aria-label", `${data.nickname || "익명"}: ${data.message || ""}`);
       card.addEventListener("click", () => showMessage(data));
 
-      const name = document.createElement("span");
-      name.className = "tree-message-name";
-      name.textContent = data.nickname;
+      const nickname = document.createElement("span");
+      nickname.className = "tree-message-name";
+      nickname.textContent = data.nickname || "익명";
 
-      const text = document.createElement("span");
-      text.className = "tree-message-text";
-      text.textContent = data.message;
+      const message = document.createElement("span");
+      message.className = "tree-message-text";
+      message.textContent = data.message || "";
 
-      card.append(name, text);
+      card.append(nickname, message);
       ornamentsEl.append(card);
     });
   }
 
   async function loadTree() {
     if (!configured) {
-      statusEl.textContent = "config.js에 Apps Script 웹 앱 URL을 먼저 입력해 주세요.";
+      statusEl.textContent = "config.js에 Apps Script 웹 앱 URL을 입력해 주세요.";
       document.querySelector("#count").textContent = "—";
       return;
     }
 
     try {
       const result = await jsonp({ action: "list" });
-      if (!result.ok) throw new Error(result.error || "목록을 불러오지 못했어요.");
+      if (!result || result.ok !== true || !Array.isArray(result.messages)) {
+        throw new Error(result?.error || "서버 응답 형식이 올바르지 않아요.");
+      }
 
-      latestMessages = Array.isArray(result.messages) ? result.messages : [];
+      latestMessages = result.messages;
       renderTreeShape(latestMessages.length);
       renderTreeMessages(latestMessages);
       document.querySelector("#count").textContent = latestMessages.length;
       updateGrowthLabel(latestMessages.length);
     } catch (error) {
-      statusEl.textContent = error.message;
+      statusEl.textContent = `메시지를 불러오지 못했어요: ${error.message}`;
       console.error(error);
     }
   }
 
   form.addEventListener("submit", async event => {
     event.preventDefault();
+
     if (!configured) {
       statusEl.textContent = "먼저 config.js에 Apps Script URL을 입력해 주세요.";
       return;
@@ -186,9 +194,12 @@
         client: getClientId()
       });
       if (!result.ok) throw new Error(result.error || "접수에 실패했어요.");
+
       form.reset();
       countEl.textContent = "0 / 30";
-      statusEl.textContent = "접수 완료! 관리자 승인 후 트리 위에 바로 표시돼요.";
+      statusEl.textContent = "접수 완료! 관리자 승인 후 최대 20초 안에 트리 위에 표시돼요.";
+      // Refresh once immediately; pending messages stay hidden until approved.
+      await loadTree();
     } catch (error) {
       statusEl.textContent = `${error.message} 잠시 후 다시 시도해 주세요.`;
     } finally {
@@ -219,5 +230,5 @@
   });
 
   loadTree();
-  if (configured) setInterval(loadTree, 20000);
+  if (configured) window.setInterval(loadTree, 20000);
 })();

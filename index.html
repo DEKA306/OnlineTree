@@ -21,14 +21,16 @@
     </section>
     <section class="tree-panel" aria-label="공동 크리스마스트리">
       <div class="tree-scene">
-        <div class="pixel-star">★</div>
         <div class="tree" id="tree">
+          <div class="pixel-star">★</div>
           <div class="trunk"></div>
-          <div id="ornaments" class="ornaments"></div>
+          <div id="ornaments" class="ornaments">
+            <p class="tree-empty">첫 번째 메시지를 기다리고 있어요.</p>
+          </div>
         </div>
         <div class="ground"></div>
       </div>
-      <div class="tree-caption"><span class="live-dot"></span> 승인된 메시지가 트리 위에 바로 표시돼요 · 메시지 전문을 항상 읽을 수 있어요</div>
+      <div class="tree-caption"><span class="live-dot"></span> 승인된 메시지가 트리 가지 위에 직접 표시돼요 · 모든 문장을 항상 읽을 수 있어요</div>
       <div class="counter"><strong id="count">0</strong><span>개의 메시지가 트리에 달렸어요</span></div>
       <p id="growth-stage" class="growth-stage">새싹 단계 · 가지 층 5단</p>
       <p class="refresh-note">트리는 약 20초마다 자동으로 새로고침돼요.</p>
@@ -36,7 +38,7 @@
 <section class="write-panel">
       <div class="section-heading">
         <p class="eyebrow">ADD YOUR LIGHT</p><h2>트리에 메시지 달기</h2>
-        <p>메시지는 관리자 승인 후 트리 위에 바로 표시돼요.</p>
+        <p>메시지는 관리자 승인 후 트리 가지 위에 직접 표시돼요.</p>
       </div>
       <form id="message-form">
         <label for="nickname">닉네임</label>
