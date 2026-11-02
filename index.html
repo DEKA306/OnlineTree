@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#081326">
+  <title>Pixel Christmas Tree</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="snow" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="./">PIXEL<span> CHRISTMAS</span></a>
+    <span class="admin-note">A TREE WE BUILD TOGETHER</span>
+  </header>
+  <main>
+    <section class="intro">
+      <p class="eyebrow">ONE TREE · MANY MESSAGES</p>
+      <h1>우리의 크리스마스 트리</h1>
+      <p class="sub">작은 메시지 하나씩 모아, 모두의 트리를 완성해요.</p>
+    </section>
+    <section class="tree-panel" aria-label="공동 크리스마스트리">
+      <div class="tree-scene">
+        <div class="pixel-star">★</div>
+        <div class="tree" id="tree">
+          <div class="tree-row row-1"></div><div class="tree-row row-2"></div>
+          <div class="tree-row row-3"></div><div class="tree-row row-4"></div>
+          <div class="tree-row row-5"></div><div class="trunk"></div>
+          <div id="ornaments" class="ornaments"></div>
+        </div>
+        <div class="ground"></div>
+      </div>
+      <div class="tree-caption"><span class="live-dot"></span> 승인된 메시지가 트리에 모이고 있어요</div>
+      <div class="counter"><strong id="count">0</strong><span>개의 메시지가 트리에 달렸어요</span></div>
+      <p class="refresh-note">트리는 약 20초마다 자동으로 새로고침돼요.</p>
+    </section>
+    <section class="write-panel">
+      <div class="section-heading">
+        <p class="eyebrow">ADD YOUR LIGHT</p><h2>트리에 메시지 달기</h2>
+        <p>메시지는 관리자 승인 후 모두에게 공개돼요.</p>
+      </div>
+      <form id="message-form">
+        <label for="nickname">닉네임</label>
+        <input id="nickname" maxlength="16" autocomplete="nickname" placeholder="예: 눈사람" required>
+        <label for="message">메시지 <span class="muted">최대 100자</span></label>
+        <textarea id="message" maxlength="100" rows="3" placeholder="따뜻한 크리스마스 메시지를 남겨주세요." required></textarea>
+        <label class="honeypot" aria-hidden="true">웹사이트<input id="website" tabindex="-1" autocomplete="off"></label>
+        <div class="form-bottom"><span id="char-count">0 / 100</span><button type="submit" id="submit-btn">메시지 보내기 <span>→</span></button></div>
+        <p id="form-status" class="status" role="status"></p>
+      </form>
+    </section>
+    <section class="how">
+      <div class="how-card"><b>01</b><span>메시지 작성</span><small>닉네임과 메시지를 남겨요.</small></div>
+      <div class="how-card"><b>02</b><span>관리자 승인</span><small>확인된 메시지만 공개돼요.</small></div>
+      <div class="how-card"><b>03</b><span>트리에 장식</span><small>모두의 화면에 나타나요.</small></div>
+    </section>
+  </main>
+  <footer>MADE TOGETHER · MERRY CHRISTMAS</footer>
+  <dialog id="message-dialog">
+    <button class="dialog-close" id="dialog-close" aria-label="닫기">×</button>
+    <p class="eyebrow">A LITTLE CHRISTMAS NOTE</p><h3 id="dialog-nickname"></h3><p id="dialog-message"></p>
+  </dialog>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

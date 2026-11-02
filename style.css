@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+:root{--bg:#081326;--panel:#101f38;--line:#263b5c;--mint:#76e0b0;--gold:#ffd875;--text:#f2f6ff;--muted:#a8b7ce}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 35%,#173052 0,#0b1a31 45%,#060e1d 100%);color:var(--text);font-family:'Noto Sans KR',sans-serif;overflow-x:hidden}
+.topbar{height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 max(22px,calc((100% - 1050px)/2));border-bottom:1px solid #ffffff12;background:#06102088;position:relative;z-index:2}
+.brand{font:10px 'Press Start 2P',monospace;color:#fff;text-decoration:none;letter-spacing:-1px}.brand span{color:var(--gold)}.admin-note{font-size:10px;color:var(--muted);letter-spacing:1px}
+main{width:min(100% - 32px,850px);margin:auto}.intro{text-align:center;padding:58px 0 24px}.eyebrow{font:9px 'Press Start 2P',monospace;letter-spacing:1px;color:var(--mint);margin:0 0 18px}
+h1{font-size:clamp(25px,5vw,40px);margin:0 0 12px;letter-spacing:-1.5px}.sub,.section-heading>p:last-child{color:var(--muted);font-size:14px;margin:0}
+.tree-panel{border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,#132642d9,#0c1a30e8);padding:22px 16px 20px;box-shadow:0 22px 70px #0005;text-align:center}
+.tree-scene{height:380px;position:relative;display:flex;align-items:flex-end;justify-content:center;overflow:hidden}.tree{position:relative;width:320px;height:330px;image-rendering:pixelated}
+.tree-row{position:absolute;left:50%;transform:translateX(-50%);background:#1f9b69;clip-path:polygon(50% 0,100% 100%,0 100%);filter:drop-shadow(0 5px 0 #126044)}
+.row-1{top:25px;width:112px;height:100px;background:#38b978}.row-2{top:78px;width:178px;height:116px;background:#259e6a}.row-3{top:132px;width:240px;height:112px;background:#1d8c60}.row-4{top:184px;width:292px;height:105px;background:#187b57}.row-5{top:230px;width:320px;height:90px;background:#146d50}
+.trunk{position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:42px;height:58px;background:#93613f;box-shadow:inset 10px 0 #75482f}
+.pixel-star{position:absolute;top:10px;left:50%;transform:translateX(-50%);font-size:35px;color:var(--gold);text-shadow:0 0 20px #ffd875aa;z-index:2}
+.ornaments{position:absolute;inset:0;z-index:1}.ornament{position:absolute;width:15px;height:15px;border:2px solid #ffffff55;border-radius:2px;cursor:pointer;box-shadow:0 0 12px currentColor;transform:translate(-50%,-50%);transition:transform .15s}
+.ornament:hover{transform:translate(-50%,-50%) scale(1.45);z-index:3}.ornament.star{border:0;background:transparent!important;box-shadow:none;font-size:19px;line-height:15px;width:20px;height:20px}
+.ground{position:absolute;bottom:0;width:90%;height:14px;background:#d7eaff;border-radius:50%;filter:blur(7px);opacity:.25}
+.tree-caption{font-size:12px;color:var(--muted);margin-top:10px}.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#76e0b0;margin-right:7px;box-shadow:0 0 8px #76e0b0}
+.counter{display:flex;gap:8px;align-items:baseline;justify-content:center;margin-top:13px;color:var(--muted);font-size:12px}.counter strong{font-size:23px;color:var(--gold)}.refresh-note{font-size:10px;color:#71839e;margin:7px 0 0}
+.write-panel{margin:26px 0;border:1px solid var(--line);border-radius:18px;background:#101f38d9;padding:28px}.section-heading{text-align:center;margin-bottom:25px}.section-heading h2{font-size:22px;margin:0 0 8px}
+form{max-width:540px;margin:auto;display:flex;flex-direction:column;gap:9px}label{font-size:13px;font-weight:700;margin-top:7px}.muted{font-weight:400;color:var(--muted);margin-left:5px}
+input,textarea{width:100%;background:#081629;border:1px solid #304666;border-radius:9px;padding:13px 14px;color:white;font:14px 'Noto Sans KR',sans-serif;outline:none}
+input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px #76e0b018}textarea{resize:vertical}
+.form-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:5px}#char-count{font-size:11px;color:var(--muted)}
+button{cursor:pointer;border:0}#submit-btn{background:var(--mint);color:#08251c;font-weight:900;border-radius:8px;padding:12px 18px;font-size:13px}#submit-btn:disabled{opacity:.5;cursor:wait}
+.status{min-height:18px;font-size:12px;color:var(--gold);margin:5px 0 0}.honeypot{position:absolute;left:-9999px;opacity:0}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:26px 0 55px}.how-card{border:1px solid var(--line);border-radius:12px;background:#0d1b30;padding:17px;display:flex;flex-direction:column;gap:7px}.how-card b{font:10px 'Press Start 2P';color:var(--mint)}.how-card span{font-size:13px;font-weight:700}.how-card small{font-size:11px;color:var(--muted)}
+footer{text-align:center;color:#71839e;font:8px 'Press Start 2P';padding:25px 10px 35px;letter-spacing:1px}
+dialog{background:#10223c;color:white;border:1px solid #476080;border-radius:14px;padding:28px;width:min(90%,380px);box-shadow:0 20px 80px #000b}dialog::backdrop{background:#020814bb;backdrop-filter:blur(4px)}dialog h3{margin:0 0 10px}dialog p:last-child{line-height:1.7;overflow-wrap:anywhere}.dialog-close{position:absolute;right:13px;top:8px;background:none;color:white;font-size:25px}
+.snow{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.45;background-image:radial-gradient(2px 2px at 20px 30px,#fff 50%,transparent 55%),radial-gradient(1px 1px at 80px 90px,#fff 50%,transparent 55%),radial-gradient(2px 2px at 140px 160px,#fff 50%,transparent 55%);background-size:190px 210px;animation:snowfall 18s linear infinite}
+@keyframes snowfall{from{background-position:0 -210px}to{background-position:0 420px}}
+@media(max-width:560px){.intro{padding-top:42px}.tree-scene{height:340px}.tree{transform:scale(.88);transform-origin:bottom center}.write-panel{padding:23px 17px}.how{grid-template-columns:1fr}.how-card{padding:14px;display:grid;grid-template-columns:45px 1fr}.how-card b{grid-row:span 2}.how-card small{grid-column:2}.brand{font-size:8px}}
