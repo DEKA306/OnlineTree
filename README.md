@@ -54,3 +54,7 @@
 - `config.js`에 들어 있는 Apps Script URL은 사이트 연결용 공개 주소입니다. 관리자 비밀번호나 민감한 정보는 코드에 넣지 마세요.
 - 공개 웹사이트이므로 메시지에는 전화번호, 주소 등 개인정보를 쓰지 않도록 안내하세요.
 - 승인된 메시지 목록은 최근 300개까지 표시됩니다.
+
+
+## Messages displayed directly on the tree
+Approved messages are rendered as readable labels directly over the tree branches. They remain visible without clicking; clicking a label opens a larger detail view. The separate message wall is not used. The tree becomes taller as approved messages accumulate. The website refreshes the list every 20 seconds.
