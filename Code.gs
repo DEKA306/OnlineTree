@@ -45,14 +45,14 @@ function doGet(e) {
 function submitMessage_(p) {
   const rawNickname = String(p.nickname || "").trim();
   const rawMessage = String(p.message || "").trim();
-  if (rawNickname.length > 16 || rawMessage.length > 100) {
-    return {ok:false, error:"닉네임은 16자, 메시지는 100자까지 입력할 수 있어요."};
+  if (rawNickname.length > 16 || rawMessage.length > 30) {
+    return {ok:false, error:"닉네임은 16자, 메시지는 30자까지 입력할 수 있어요."};
   }
   const nickname = cleanText_(rawNickname, 16);
-  const message = cleanText_(rawMessage, 100);
+  const message = cleanText_(rawMessage, 30);
   const client = String(p.client || "").slice(0, 100);
   if (!nickname || !message) return {ok:false, error:"닉네임과 메시지를 입력해 주세요."};
-  if (nickname.length > 16 || message.length > 100) return {ok:false, error:"입력 글자 수를 초과했어요."};
+  if (nickname.length > 16 || message.length > 30) return {ok:false, error:"입력 글자 수를 초과했어요."};
   if (!/^[a-zA-Z0-9_-]{8,100}$/.test(client)) return {ok:false, error:"요청을 확인할 수 없어요."};
 
   const cache = CacheService.getScriptCache();
