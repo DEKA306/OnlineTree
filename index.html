@@ -17,22 +17,31 @@
     <section class="intro">
       <p class="eyebrow">ONE TREE · MANY MESSAGES</p>
       <h1>우리의 크리스마스 트리</h1>
-      <p class="sub">작은 메시지 하나씩 모아, 모두의 트리를 완성해요.</p>
+      <p class="sub">메시지가 모일수록 우리의 크리스마스 트리도 더 높고 풍성하게 자라요.</p>
     </section>
     <section class="tree-panel" aria-label="공동 크리스마스트리">
       <div class="tree-scene">
         <div class="pixel-star">★</div>
         <div class="tree" id="tree">
-          <div class="tree-row row-1"></div><div class="tree-row row-2"></div>
-          <div class="tree-row row-3"></div><div class="tree-row row-4"></div>
-          <div class="tree-row row-5"></div><div class="trunk"></div>
+          <div class="trunk"></div>
           <div id="ornaments" class="ornaments"></div>
         </div>
         <div class="ground"></div>
       </div>
-      <div class="tree-caption"><span class="live-dot"></span> 승인된 메시지가 트리에 모이고 있어요</div>
+      <div class="tree-caption"><span class="live-dot"></span> 승인된 메시지가 늘어날수록 트리가 자라요 · 장식을 누르면 메시지 전문을 볼 수 있어요</div>
       <div class="counter"><strong id="count">0</strong><span>개의 메시지가 트리에 달렸어요</span></div>
+      <p id="growth-stage" class="growth-stage">새싹 단계 · 가지 층 5단</p>
       <p class="refresh-note">트리는 약 20초마다 자동으로 새로고침돼요.</p>
+    </section>
+    <section class="message-wall" aria-live="polite" aria-label="승인된 전체 메시지">
+      <div class="section-heading">
+        <p class="eyebrow">MESSAGES FROM EVERYONE</p>
+        <h2>모두의 메시지</h2>
+        <p>승인된 메시지가 이곳에 항상 전체 표시돼요.</p>
+      </div>
+      <div id="message-list" class="message-list">
+        <p class="empty-messages">아직 공개된 메시지가 없어요. 첫 메시지를 기다리고 있어요.</p>
+      </div>
     </section>
     <section class="write-panel">
       <div class="section-heading">
@@ -42,10 +51,10 @@
       <form id="message-form">
         <label for="nickname">닉네임</label>
         <input id="nickname" maxlength="16" autocomplete="nickname" placeholder="예: 눈사람" required>
-        <label for="message">메시지 <span class="muted">최대 100자</span></label>
-        <textarea id="message" maxlength="100" rows="3" placeholder="따뜻한 크리스마스 메시지를 남겨주세요." required></textarea>
+        <label for="message">메시지 <span class="muted">최대 30자</span></label>
+        <textarea id="message" maxlength="30" rows="3" placeholder="30자 이내로 마음을 전해 주세요." required></textarea>
         <label class="honeypot" aria-hidden="true">웹사이트<input id="website" tabindex="-1" autocomplete="off"></label>
-        <div class="form-bottom"><span id="char-count">0 / 100</span><button type="submit" id="submit-btn">메시지 보내기 <span>→</span></button></div>
+        <div class="form-bottom"><span id="char-count">0 / 30</span><button type="submit" id="submit-btn">메시지 보내기 <span>→</span></button></div>
         <p id="form-status" class="status" role="status"></p>
       </form>
     </section>

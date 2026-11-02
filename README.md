@@ -55,3 +55,14 @@ Firebase 없이 GitHub Pages + Google Apps Script + Google Sheets로 운영합�
 - Apps Script/Sheets 무료 할당량은 Google 정책에 따라 변경될 수 있습니다. 공식 한도: https://developers.google.com/apps-script/guides/services/quotas
 - 트리 조회는 JSONP GET 요청을 사용합니다. URL에 사용자 메시지가 포함될 수 있으므로 민감한 개인정보를 남기지 않도록 안내하세요.
 - 서비스 이용량이 커지거나 스팸이 많아지면 Firebase/Supabase 등 인증·보안 기능이 더 강한 백엔드로 이전하는 것이 좋습니다.
+
+
+## Dynamic tree growth
+The tree grows based on the number of approved messages:
+- 0–10: 5 branch tiers
+- 11–25: 6 branch tiers
+- 26–50: 7 branch tiers
+- 51–100: 9 branch tiers
+- Over 100: adds another tier for each 25 additional approved messages, up to 16 tiers
+
+The website refreshes the approved message list every 20 seconds, so the tree updates after an administrator approves new messages. The current Apps Script endpoint and spreadsheet structure do not need to change.
