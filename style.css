@@ -41,8 +41,6 @@ dialog{background:#10223c;color:white;border:1px solid #476080;border-radius:14p
 .empty-messages{grid-column:1/-1;text-align:center;color:var(--muted);font-size:13px;padding:22px 8px;margin:0}
 
 
-/* Dynamic growth: branch tiers are generated from the approved-message count. */
-.tree{height:410px;transition:height .35s ease}
-.tree-row{position:absolute;left:50%;transform:translateX(-50%);clip-path:polygon(50% 0,100% 100%,0 100%);filter:drop-shadow(0 5px 0 #126044);transition:top .35s ease,width .35s ease}
-.growth-stage{margin:8px 0 0;color:var(--mint);font-size:11px;font-weight:700;letter-spacing:.4px}
-.tree-scene{transition:height .35s ease}
+/* Fixed tree: its dimensions and five branch tiers never depend on message count. */
+.tree{height:410px;flex:0 0 400px}
+.tree-row{position:absolute;left:50%;transform:translateX(-50%);clip-path:polygon(50% 0,100% 100%,0 100%);filter:drop-shadow(0 5px 0 #126044)}

@@ -37,16 +37,14 @@
       if (!result.ok) throw new Error(result.error || "목록을 불러오지 못했어요.");
       ornamentsEl.replaceChildren();
       renderMessageList(result.messages);
-      latestMessageCount = result.messages.length;
-      renderTreeShape(result.messages.length);
       document.querySelector("#count").textContent = result.messages.length;
-      updateGrowthLabel(result.messages.length);
-      result.messages.forEach(data => {
+      result.messages.forEach((data, index) => {
         const ornament = document.createElement("button");
         ornament.type = "button";
         ornament.className = `ornament ${data.kind === "star" ? "star" : ""}`;
-        ornament.style.left = `${data.x}%`;
-        ornament.style.top = `${data.y}%`;
+        const position = getOrnamentPosition(data, index);
+        ornament.style.left = `${position.x}%`;
+        ornament.style.top = `${position.y}%`;
         ornament.style.background = data.color;
         ornament.style.color = data.color;
         ornament.setAttribute("aria-label", `메시지: ${data.message}`);
@@ -66,57 +64,36 @@
 
 
 
-  function getTreeTierCount(count) {
-    if (count <= 10) return 5;
-    if (count <= 25) return 6;
-    if (count <= 50) return 7;
-    if (count <= 100) return 9;
-    return Math.min(16, 9 + Math.floor((count - 100) / 25));
-  }
-
-  function renderTreeShape(count) {
+  // The tree silhouette is deliberately fixed. Message count only adds ornaments.
+  function renderTreeShape() {
     const tree = document.querySelector("#tree");
+    if (!tree) return;
     tree.querySelectorAll(".tree-row").forEach(row => row.remove());
-
-    const tiers = getTreeTierCount(count);
-    const extraTiers = tiers - 5;
-    const treeHeight = 410 + extraTiers * 58;
-    const isMobile = window.matchMedia("(max-width: 560px)").matches;
-    const scaleY = isMobile ? 1.16 : 1.28;
-    const baseSceneHeight = isMobile ? 500 : 590;
-
-    tree.style.height = `${treeHeight}px`;
-    tree.parentElement.style.height = `${Math.round(baseSceneHeight + (treeHeight - 410) * scaleY)}px`;
-
-    const colors = ["#38b978", "#259e6a", "#1d8c60", "#187b57", "#146d50"];
-    const layerHeight = 145;
-    const firstTop = 20;
-    const lastTop = treeHeight - layerHeight + 8;
-    const spread = Math.max(1, tiers - 1);
-
-    for (let i = 0; i < tiers; i++) {
+    const tiers = [
+      { top: 31, width: 140, height: 125, color: "#38b978" },
+      { top: 97, width: 223, height: 145, color: "#259e6a" },
+      { top: 165, width: 300, height: 140, color: "#1d8c60" },
+      { top: 230, width: 365, height: 131, color: "#187b57" },
+      { top: 288, width: 400, height: 112, color: "#146d50" }
+    ];
+    tiers.forEach((tier, index) => {
       const row = document.createElement("div");
-      row.className = "tree-row";
-      const progress = i / spread;
-      const width = 118 + progress * 282;
-      const top = firstTop + progress * (lastTop - firstTop);
-      row.style.width = `${width}px`;
-      row.style.height = `${layerHeight}px`;
-      row.style.top = `${top}px`;
-      row.style.background = colors[i % colors.length];
+      row.className = `tree-row row-${index + 1}`;
+      row.style.width = `${tier.width}px`;
+      row.style.height = `${tier.height}px`;
+      row.style.top = `${tier.top}px`;
+      row.style.background = tier.color;
       tree.insertBefore(row, tree.querySelector(".trunk"));
-    }
+    });
   }
 
-  function updateGrowthLabel(count) {
-    const label = document.querySelector("#growth-stage");
-    if (!label) return;
-    const tiers = getTreeTierCount(count);
-    const stage = tiers <= 5 ? "새싹 단계" :
-      tiers === 6 ? "성장 단계" :
-      tiers <= 8 ? "풍성한 트리" :
-      tiers <= 10 ? "거대한 트리" : "전설의 트리";
-    label.textContent = `${stage} · 가지 층 ${tiers}단`;
+  // Keep ornaments inside the triangular canopy, using the saved position where possible.
+  function getOrnamentPosition(data, index) {
+    const y = Number.isFinite(Number(data.y)) ? Math.min(88, Math.max(18, Number(data.y))) : 25 + (index * 17 % 58);
+    const halfWidth = Math.max(7, Math.min(42, 5 + (y - 15) * 0.52));
+    const rawX = Number.isFinite(Number(data.x)) ? Number(data.x) : 50 + Math.sin(index * 2.4) * halfWidth * 0.75;
+    const x = Math.min(50 + halfWidth, Math.max(50 - halfWidth, rawX));
+    return { x, y };
   }
 
   function renderMessageList(messages) {
@@ -182,9 +159,7 @@
 
   document.querySelector("#dialog-close").addEventListener("click", () => dialog.close());
   dialog.addEventListener("click", event => { if (event.target === dialog) dialog.close(); });
-  let latestMessageCount = 0;
-  window.addEventListener("resize", () => renderTreeShape(latestMessageCount));
-  // Keep the responsive tree height in sync with the most recently loaded count.
+  renderTreeShape();
   loadTree();
   if (configured) setInterval(loadTree, 20000);
 })();
