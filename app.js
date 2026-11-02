@@ -73,8 +73,7 @@
       { top: 31, width: 140, height: 125, color: "#38b978" },
       { top: 97, width: 223, height: 145, color: "#259e6a" },
       { top: 165, width: 300, height: 140, color: "#1d8c60" },
-      { top: 230, width: 365, height: 131, color: "#187b57" },
-      { top: 288, width: 400, height: 112, color: "#146d50" }
+      { top: 230, width: 365, height: 131, color: "#187b57" }
     ];
     tiers.forEach((tier, index) => {
       const row = document.createElement("div");
