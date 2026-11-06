@@ -41,7 +41,7 @@
       result.messages.forEach((data, index) => {
         const ornament = document.createElement("button");
         ornament.type = "button";
-        ornament.className = `ornament ${data.kind === "star" ? "star" : ""}`;
+        ornament.className = "ornament";
         const position = getOrnamentPosition(data, index);
         ornament.style.left = `${position.x}%`;
         ornament.style.top = `${position.y}%`;
