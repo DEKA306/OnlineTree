@@ -1,4 +1,4 @@
 // Google Apps Script web app URL
 window.TREE_CONFIG = {
-  SCRIPT_URL: "https://script.google.com/macros/s/AKfycbw5mGsCqOaxNshaS0LMJ2UlndjpDnxQePCnH9dMmMeoFuSPRIZ5hzqWi7R_PVyZN4zH/exec"
+  SCRIPT_URL: "https://script.google.com/macros/s/AKfycbxJF8LANDqxrZU6I6pPzkEQkIMBJg1voS5rj-Qjb7rou8K_qA35ufh-XNILaxh86K4J/exec"
 };
